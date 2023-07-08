@@ -12,7 +12,6 @@ import ru.practicum.server.service.HitService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
