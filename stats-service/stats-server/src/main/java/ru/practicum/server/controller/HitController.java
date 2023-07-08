@@ -13,6 +13,7 @@ import ru.practicum.server.service.HitService;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -27,10 +28,10 @@ public class HitController {
         return new ResponseEntity<>(hServ.post(endpointHitDto), HttpStatus.CREATED);
     }
 
-    @GetMapping("stats")
+    @GetMapping("/stats")
     public ResponseEntity<Object> get(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
-                                      @RequestParam(required = false) Collection<String> uris,
+                                      @RequestParam(required = false, defaultValue = "") List<String> uris,
                                       @RequestParam(required = false, defaultValue = "false") Boolean unique) {
         log.info("GET stats, start={}, end={}, uris={}, unique={}", start, end, uris, unique);
         return new ResponseEntity<>(hServ.get(start, end, uris, unique), HttpStatus.OK);

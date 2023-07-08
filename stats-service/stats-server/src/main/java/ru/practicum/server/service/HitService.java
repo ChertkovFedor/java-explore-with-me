@@ -12,6 +12,6 @@ public interface HitService {
 
     List<ViewStatsDto> get(LocalDateTime start,
                            LocalDateTime end,
-                           Collection<String> uris,
+                           List<String> uris,
                            Boolean unique);
 }

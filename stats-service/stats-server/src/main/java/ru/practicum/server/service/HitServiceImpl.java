@@ -34,7 +34,7 @@ public class HitServiceImpl implements HitService {
     }
 
     @Override
-    public List<ViewStatsDto> get(LocalDateTime start, LocalDateTime end, Collection<String> uris, Boolean unique) {
+    public List<ViewStatsDto> get(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
 
         if (start.isAfter(LocalDateTime.now())) {
             throw new ValidationException("The start date cannot be in the future");
