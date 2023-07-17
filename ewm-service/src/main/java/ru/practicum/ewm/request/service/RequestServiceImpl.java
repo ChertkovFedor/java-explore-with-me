@@ -39,7 +39,9 @@ public class RequestServiceImpl implements RequestService {
 
         Optional<Request> optionalRequest = rRep.findFirstByEventIdIsAndRequesterIdIs(event.getId(), requester.getId());
 
-        optionalRequest.ifPresent(r -> {throw new InvalidOperationException("Request already exist");});
+        optionalRequest.ifPresent(r -> {
+            throw new InvalidOperationException("Request already exist");
+        });
 
         if (event.getInitiator().equals(requester))
             throw new InvalidOperationException("Request could not be created by event initiator");

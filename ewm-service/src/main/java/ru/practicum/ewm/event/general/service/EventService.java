@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface EventService {
+
     Event update(Event eventToUpdate, UpdateEventRequest updateEventRequest);
+
     Map<Long, Long> getStats(List<Event> events, Boolean unique);
+
 }
