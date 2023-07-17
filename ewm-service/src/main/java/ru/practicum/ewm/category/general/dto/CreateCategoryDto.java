@@ -10,6 +10,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class CreateCategoryDto {
     @NotBlank(message = "Blank name")
-    @Size(max = 50, message = "Name is too long")
+    @Size(max = 250, message = "Name is too long")
     private String name;
 }
