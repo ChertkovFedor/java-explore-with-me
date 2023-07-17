@@ -26,22 +26,25 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> post(String app, String uri, String ip, LocalDateTime timestamp) {
-        EndpointHitDto endpointHitDto = new EndpointHitDto();
-        endpointHitDto.setApp(app);
-        endpointHitDto.setUri(uri);
-        endpointHitDto.setIp(ip);
-        endpointHitDto.setTimestamp(timestamp);
-        return post("/hits", endpointHitDto);
+    public ResponseEntity<Object> create(String app, String uri, String ip, LocalDateTime timestamp) {
+        EndpointHitDto hitDto = EndpointHitDto.builder()
+                .app(app)
+                .uri(uri)
+                .ip(ip)
+                .timestamp(timestamp)
+                .build();
+
+        return post("/hit", hitDto);
     }
 
     public ResponseEntity<Object> get(String start, String end, List<String> uris, Boolean unique) {
         Map<String, Object> parameters = Map.of(
                 "start", start,
                 "end", end,
-                "uris", uris,
+                "uris", String.join(",", uris),
                 "unique", unique
         );
+
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
 }

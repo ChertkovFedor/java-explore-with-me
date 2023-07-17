@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface HitService {
-    EndpointHitDto post(EndpointHitDto endpointHitDto);
+    EndpointHitDto post(EndpointHitDto hitDto);
 
     List<ViewStatsDto> get(LocalDateTime start,
                            LocalDateTime end,

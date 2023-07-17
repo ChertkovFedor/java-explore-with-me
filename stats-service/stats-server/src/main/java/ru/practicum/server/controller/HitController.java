@@ -19,20 +19,21 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 public class HitController {
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private final HitService hServ;
 
     @PostMapping("/hit")
-    public ResponseEntity<Object> post(@RequestBody @Valid EndpointHitDto endpointHitDto) {
-        log.info("POST for new EndpointHitDto {}", endpointHitDto);
-        return new ResponseEntity<>(hServ.post(endpointHitDto), HttpStatus.CREATED);
+    public ResponseEntity<Object> post(@RequestBody @Valid EndpointHitDto hitDto) {
+        log.info("-- HitController -- POST for new EndpointHitDto {}", hitDto);
+        return new ResponseEntity<>(hServ.post(hitDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<Object> get(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
-                                      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
-                                      @RequestParam(required = false, defaultValue = "") List<String> uris,
-                                      @RequestParam(required = false, defaultValue = "false") Boolean unique) {
-        log.info("GET stats, start={}, end={}, uris={}, unique={}", start, end, uris, unique);
+    public ResponseEntity<Object> get(@RequestParam(name = "start") @DateTimeFormat(pattern = DATE_TIME_PATTERN) LocalDateTime start,
+                                      @RequestParam(name = "end") @DateTimeFormat(pattern = DATE_TIME_PATTERN) LocalDateTime end,
+                                      @RequestParam(name = "uris", defaultValue = "") List<String> uris,
+                                      @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
+        log.info("-- HitController -- GET stats, start={}, end={}, uris={}, unique={}", start, end, uris, unique);
         return new ResponseEntity<>(hServ.get(start, end, uris, unique), HttpStatus.OK);
     }
 }

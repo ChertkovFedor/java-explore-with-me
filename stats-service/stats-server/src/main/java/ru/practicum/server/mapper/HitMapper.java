@@ -5,25 +5,25 @@ import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.server.model.Hit;
 
 @NoArgsConstructor
-public class HitMapper {
+public final class HitMapper {
 
-    public static Hit toEndpointHit(EndpointHitDto endpointHitDto) {
-        return new Hit(
-                endpointHitDto.getId(),
-                endpointHitDto.getApp(),
-                endpointHitDto.getUri(),
-                endpointHitDto.getIp(),
-                endpointHitDto.getTimestamp()
-        );
+    public static Hit toModel(EndpointHitDto endpointHitDto) {
+        return Hit.builder()
+                .id(endpointHitDto.getId())
+                .app(endpointHitDto.getApp())
+                .uri(endpointHitDto.getUri())
+                .ip(endpointHitDto.getIp())
+                .timestamp(endpointHitDto.getTimestamp())
+                .build();
     }
 
-    public static EndpointHitDto toEndpointHitDto(Hit hit) {
-        return new EndpointHitDto(
-                hit.getId(),
-                hit.getApp(),
-                hit.getUri(),
-                hit.getIp(),
-                hit.getTimestamp()
-        );
+    public static EndpointHitDto toDto(Hit hit) {
+        return EndpointHitDto.builder()
+                .id(hit.getId())
+                .app(hit.getApp())
+                .uri(hit.getUri())
+                .ip(hit.getIp())
+                .timestamp(hit.getTimestamp())
+                .build();
     }
 }
