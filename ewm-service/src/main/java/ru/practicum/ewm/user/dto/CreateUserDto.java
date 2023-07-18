@@ -12,12 +12,10 @@ import javax.validation.constraints.Size;
 public class CreateUserDto {
     private Long id;
     @NotBlank(message = "Empty name")
-    @Size(max = 250, message = "Name is too long")
-    @Size(min = 2, message = "Name is too short")
+    @Size(min = 2, max = 250, message = "Name is too short or long")
     private String name;
     @NotBlank(message = "Empty email")
     @Email(message = "Invalid email")
-    @Size(max = 254, message = "Email is too long")
-    @Size(min = 6, message = "Email is too short")
+    @Size(min = 6, max = 254, message = "Email is too short or long")
     private String email;
 }
