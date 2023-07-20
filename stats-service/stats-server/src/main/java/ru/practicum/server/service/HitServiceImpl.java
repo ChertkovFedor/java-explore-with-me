@@ -13,8 +13,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.practicum.server.mapper.HitMapper.toEndpointHit;
-import static ru.practicum.server.mapper.HitMapper.toEndpointHitDto;
+import static ru.practicum.server.mapper.HitMapper.toModel;
+import static ru.practicum.server.mapper.HitMapper.toDto;
 
 @Service
 @RequiredArgsConstructor
@@ -24,33 +24,21 @@ public class HitServiceImpl implements HitService {
 
     @Transactional
     @Override
-    public EndpointHitDto post(EndpointHitDto endpointHitDto) {
-        return toEndpointHitDto(
-                hRep.save(
-                        toEndpointHit(endpointHitDto)
-                )
-        );
+    public EndpointHitDto post(EndpointHitDto hitDto) {
+        return toDto(hRep.save(toModel(hitDto)));
     }
 
     @Override
     public List<ViewStatsDto> get(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
 
-        if (start.isAfter(LocalDateTime.now())) {
+        if (start.isAfter(LocalDateTime.now()))
             throw new ValidationException("The start date cannot be in the future");
-        }
-        if (unique) {
+        if (unique)
             return hRep.getStatsUniqueIps(start, end, uris)
                     .stream()
                     .sorted(Comparator.comparing(ViewStatsDto::getHits).reversed())
                     .collect(Collectors.toList());
-        }
-        if (!uris.isEmpty()) {
-            return hRep.getStats(start, end, uris)
-                    .stream()
-                    .sorted(Comparator.comparing(ViewStatsDto::getHits).reversed())
-                    .collect(Collectors.toList());
-        }
-        return hRep.getStatsAll(start, end)
+        return hRep.getStats(start, end, uris)
                 .stream()
                 .sorted(Comparator.comparing(ViewStatsDto::getHits).reversed())
                 .collect(Collectors.toList());

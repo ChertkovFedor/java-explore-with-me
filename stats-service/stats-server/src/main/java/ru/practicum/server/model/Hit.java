@@ -10,19 +10,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Data
-@Table(name = "hits")
+@Builder
+@Table(name = "HITS")
 public class Hit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
-    @Column(name = "app", nullable = false, length = 64)
+    @Column(name = "APP", nullable = false, length = 64)
     private String app;
-    @Column(name = "uri", nullable = false)
+    @Column(name = "URI", nullable = false)
     private String uri;
-    @Column(name = "ip", nullable = false, length = 32)
+    @Column(name = "IP", nullable = false, length = 32)
     private String ip;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "timestamp", nullable = false)
+    @Column(name = "TIMESTAMP", nullable = false)
     private LocalDateTime timestamp;
 }
