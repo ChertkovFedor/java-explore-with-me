@@ -1,7 +1,7 @@
 package ru.practicum.ewm.event.common.service;
 
 import ru.practicum.ewm.event.general.dto.EventDto;
-import ru.practicum.ewm.util.enums.SortTypes;
+import ru.practicum.ewm.util.enums.EventSortTypes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ public interface PublicEventService {
                           LocalDateTime rangeStart,
                           LocalDateTime rangeEnd,
                           Boolean onlyAvailable,
-                          SortTypes sort,
+                          EventSortTypes sort,
                           long from,
                           int size,
                           String ip);

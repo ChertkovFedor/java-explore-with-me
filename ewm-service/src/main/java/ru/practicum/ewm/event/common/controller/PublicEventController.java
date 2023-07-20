@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.event.common.service.PublicEventService;
 import ru.practicum.ewm.event.general.dto.EventDto;
-import ru.practicum.ewm.util.enums.SortTypes;
+import ru.practicum.ewm.util.enums.EventSortTypes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Positive;
@@ -45,7 +45,7 @@ public class PublicEventController {
             @RequestParam(name = "rangeEnd", required = false)
                 @DateTimeFormat(pattern = DATE_TIME_PATTERN) LocalDateTime rangeEnd,
             @RequestParam(name = "onlyAvailable", required = false) Boolean onlyAvailable,
-            @RequestParam(name = "sort", required = false) SortTypes sort,
+            @RequestParam(name = "sort", required = false) EventSortTypes sort,
             @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero long from,
             @RequestParam(name = "size", defaultValue = "10") @Positive int size,
             HttpServletRequest request) {

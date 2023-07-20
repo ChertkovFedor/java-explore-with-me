@@ -10,7 +10,7 @@ import ru.practicum.ewm.event.general.repository.EventRepository;
 import ru.practicum.ewm.event.general.service.EventService;
 import ru.practicum.ewm.request.model.Request;
 import ru.practicum.ewm.request.service.CommonRequestService;
-import ru.practicum.ewm.util.enums.SortTypes;
+import ru.practicum.ewm.util.enums.EventSortTypes;
 import ru.practicum.ewm.util.enums.State;
 import ru.practicum.ewm.util.exception.EventNotFoundException;
 import ru.practicum.ewm.util.exception.NotFoundException;
@@ -67,7 +67,7 @@ public class PublicEventServiceImpl implements PublicEventService {
                                  LocalDateTime rangeStart,
                                  LocalDateTime rangeEnd,
                                  Boolean onlyAvailable,
-                                 SortTypes sort,
+                                 EventSortTypes sort,
                                  long from,
                                  int size,
                                  String ip) {
@@ -94,7 +94,7 @@ public class PublicEventServiceImpl implements PublicEventService {
         statsClient.create(APP_NAME, "/events", ip, timestamp);
         foundEvents.forEach(event -> statsClient.create(APP_NAME, "/events/" + event.getId(), ip, timestamp));
 
-        if (SortTypes.VIEWS.equals(sort))
+        if (EventSortTypes.VIEWS.equals(sort))
             return eventsDto.stream()
                     .sorted(Comparator.comparing(EventDto::getViews))
                     .collect(Collectors.toList());
